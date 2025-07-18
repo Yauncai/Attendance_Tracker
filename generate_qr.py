@@ -1,7 +1,7 @@
 import qrcode
 
 # URL that the QR code will link to (your Flask form URL)
-url = 'http://172.26.125.205:5002/form'  # change port if your Flask app runs on a different port
+url = 'http://172.26.125.205:5003/form'  # change port if your Flask app runs on a different port
 
 # Create QR code object
 qr = qrcode.QRCode(
