@@ -1,5 +1,7 @@
 import sqlite3
 from flask import Flask, render_template, request, Response
+import csv
+from io import StringIO
 from datetime import datetime
 
 app = Flask(__name__)
@@ -15,13 +17,29 @@ def insert_attendance(name, surname, phone, status, timestamp):
     conn.commit()
     conn.close()
 
-def get_all_attendance():
+def get_filtered_attendance(name=None, status=None, date=None):
     conn = sqlite3.connect(DB)
     c = conn.cursor()
-    c.execute('SELECT name, surname, phone, status, timestamp FROM attendance ORDER BY timestamp DESC')
+
+    query = 'SELECT name, surname, phone, status, timestamp FROM attendance WHERE 1=1'
+    params = []
+
+    if name:
+        query += ' AND name LIKE ?'
+        params.append(f'%{name}%')
+    if status:
+        query += ' AND status = ?'
+        params.append(status)
+    if date:
+        query += ' AND DATE(timestamp) = ?'
+        params.append(date)
+
+    query += ' ORDER BY timestamp DESC'
+    c.execute(query, params)
     rows = c.fetchall()
     conn.close()
     return rows
+
 
 # --- Basic Auth for admin page ---
 def check_auth(username, password):
@@ -58,8 +76,39 @@ def admin():
     if not auth or not check_auth(auth.username, auth.password):
         return authenticate()
 
-    rows = get_all_attendance()
+    name = request.args.get('name')
+    status = request.args.get('status')
+    date = request.args.get('date')
+
+    rows = get_filtered_attendance(name, status, date)
     return render_template('admin.html', records=rows)
+
+@app.route('/admin/export')
+def export_csv():
+    auth = request.authorization
+    if not auth or not check_auth(auth.username, auth.password):
+        return authenticate()
+
+    name = request.args.get('name')
+    status = request.args.get('status')
+    date = request.args.get('date')
+
+    rows = get_filtered_attendance(name, status, date)
+
+    # Create CSV in memory
+    si = StringIO()
+    writer = csv.writer(si)
+    writer.writerow(['First Name', 'Surname', 'Phone', 'Status', 'Timestamp'])
+    writer.writerows(rows)
+
+    output = si.getvalue()
+    si.close()
+
+    return Response(
+        output,
+        mimetype='text/csv',
+        headers={'Content-Disposition': 'attachment;filename=attendance_records.csv'}
+    )
 
 # --- Run the app ---
 if __name__ == '__main__':

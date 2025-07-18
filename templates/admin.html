@@ -6,8 +6,35 @@
 </head>
 <body>
     <h2>YAF WCI Krugersdorp Attendance Records</h2>
+        <!-- Filter Form -->
+    <form method="get" action="/admin">
+        <label for="name">First Name:</label>
+        <input type="text" id="name" name="name" value="{{ request.args.get('name', '') }}">
+
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option value="">All</option>
+            <option value="first-timer" {% if request.args.get('status') == 'first-timer' %}selected{% endif %}>First-time visitor</option>
+            <option value="regular" {% if request.args.get('status') == 'regular' %}selected{% endif %}>Regulatr youth attendee</option>
+        </select>
+
+        <label for="date">Date (YYYY-MM-DD):</label>
+        <input type="date" id="date" name="date" value="{{ request.args.get('date', '') }}">
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <form method="get" action="/admin/export">
+        <input type="hidden" name="name" value="{{ request.args.get('name', '') }}">
+        <input type="hidden" name="status" value="{{ request.args.get('status', '') }}">
+        <input type="hidden" name="date" value="{{ request.args.get('date', '') }}">
+        <button type="submit">Download CSV</button>
+    </form>
+
+
     <p>Total Records: {{ records|length }}</p>
-    
+
+
     <table border="1" cellpadding="5" cellspacing="0">
         <thead>
             <tr>
