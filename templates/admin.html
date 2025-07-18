@@ -46,15 +46,21 @@
             </tr>
         </thead>
         <tbody>
-            {% for row in records %}
-            <tr>
-                <td>{{ row[0] }}</td>
-                <td>{{ row[1] }}</td>
-                <td>{{ row[2] }}</td>
-                <td>{{ row[3] }}</td>
-                <td>{{ row[4] }}</td>
-            </tr>
-            {% endfor %}
+            {% if records %}
+                {% for row in records %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center;">No attendance records found for the selected filters.</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </body>
