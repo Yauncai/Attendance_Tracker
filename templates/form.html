@@ -5,23 +5,16 @@
     <title> YAF WCI Krugersdorp Attedance Form</title>
 </head>
 <body>
-    <h2>Check-In Form 🕊️</h2>
+    <h2>YAF WCI Krugersdorp Attendance Check-In</h2>
     <form method="POST">
-        <label>First Name:</label><br>
-        <input type="text" name="name" required><br><br>
-
-        <label>Surname:</label><br>
-        <input type="text" name="surname" required><br><br>
-
-        <label>Phone Number:</label><br>
-        <input type="tel" name="phone" required><br><br>
-
-        <label>Are you a:</label><br>
+        First Name: <input type="text" name="name" required><br>
+        Surname: <input type="text" name="surname" required><br>
+        Phone Number: <input type="tel" name="phone" required pattern="[0-9]{10}" title="10 digit phone number"><br>
+        Are you a:
         <select name="status">
             <option value="first-timer">First-time visitor</option>
-            <option value="regular">Regular youth attendee</option>
+            <option value="regular">Regular Youth attendee</option>
         </select><br><br>
-
         <button type="submit">Submit</button>
     </form>
 </body>
