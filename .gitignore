@@ -1,15 +1,32 @@
-# Ignore virtual environment
+# Virtual environment
 venv/
+ENV/
+env/
+.venv/
 
-# Ignore Python cache files
+# Python bytecode and cache
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 
-# Ignore attendance data file (if used)
-attendance.csv
+# SQLite database
+*.sqlite3
+*.db
+yaf_attendance.db
 
-# Ignore OS-specific files
+# macOS
 .DS_Store
+
+# Windows
 Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# VSCode settings (if applicable)
+.vscode/
+
+# PyCharm settings (if applicable)
+.idea/
+
+# Log files
+*.log
