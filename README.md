@@ -1,81 +1,57 @@
 # Church Attendance Tracker
 
-A digital attendance management system designed to streamline church attendance tracking through QR code scanning and automated data collection.
+A modern web-based attendance management system for churches, designed to simplify attendance tracking through QR code check-ins, digital forms, and administrative tools.
 
 ## What is the Church Attendance Tracker?
 
-The Church Attendance Tracker is a Python-based application that modernizes the traditional attendance-taking process in churches. Instead of manual paper-based systems or verbal roll calls, this system uses QR codes to allow congregation members to quickly check themselves in using their mobile devices.
+The Church Attendance Tracker is a Python + Flask application that replaces traditional roll calls or paper sign-in sheets with a digital check-in system. Congregants scan a QR code and submit their details via a mobile-friendly form. Attendance data is stored in a structured database and available for analysis or download by administrators.
 
 ## What Does It Do?
 
 The system provides the following core functionality:
 
 ### **Digital Check-In Process**
-- Generates QR codes that can be displayed at church entrances or in bulletins
-- Allows attendees to scan the code with their smartphones
-- Presents a simple web form for attendees to enter their information
-- Automatically timestamps each check-in with the current date and time
+- Members scan a QR code and complete a short form.
 
-### **Data Collection**
-- Captures essential attendee information including:
-  - Full name (first name and surname)
-  - Phone number
-  - First-time visitor status (first-timer vs. regular attendee)
-  - Attendance date and time
+- Attendance is time-stamped and stored automatically.
+
 
 ### **Personalized Welcome Messages**
-- **First-time visitors** receive a warm welcome message thanking them for visiting
-- **Regular attendees** receive a "welcome back" message acknowledging their continued participation
-- Messages can be customized to reflect your church's tone and hospitality
+- First-time visitors receive a custom welcome message.
+
+- Regular attendees are greeted with a "welcome back."
 
 ### **Database Management**
-- Stores all attendance data in a structured database
-- Maintains historical records for analysis and follow-up
-- Ensures data integrity and prevents duplicate entries
+- Stores attendance data in a persistent SQLite database.
 
-### **Reporting and Analytics**
-- Generate attendance reports by:
-  - **Daily**: See who attended on specific dates
-  - **Monthly**: Track attendance trends over months
-  - **Yearly**: Analyze annual attendance patterns
-- Get attendance counts and statistics for any time period
-- Identify first-time visitors for follow-up and outreach
+- Prevents duplicate check-ins based on name and phone number.
+
+### **Admin Dashboard**
+- View a live table of all attendance records.
+
+- Filter attendance by status (e.g., first-timers, regulars).
+
+- Export attendance data as a CSV file.
+
+- Responsive design for desktop and mobile views.
 
 ## How to Use the System
 
 ### **For Church Staff/Administrators**
 
-1. **Setup and Installation**
-   - Install Python and required dependencies
-   - Configure the database connection
-   - Set up the web server to handle QR code requests
+- Visit /admin to view all records.
 
-2. **Generate QR Codes**
-   - Create QR codes for each service or event
-   - Display codes at church entrances, in bulletins, or on screens
-   - Each QR code links to the attendance form
+- Use filters to sort data.
 
-3. **Monitor Attendance**
-   - View real-time check-ins as they happen
-   - Access the admin dashboard to see current attendance
-   - Generate reports for leadership and planning purposes
+- Export a .csv file for reporting or backups.
 
 ### **For Church Members and Visitors**
 
-1. **Scan the QR Code**
-   - Use your smartphone camera or QR code reader app
-   - Scan the code displayed at the church entrance or in materials
+- Scan the QR code provided at the entrance.
 
-2. **Complete the Form**
-   - Enter your first name and surname
-   - Provide your phone number
-   - Select whether you're a first-time visitor or regular attendee
-   - Submit the form
+- Fill out the form: name, phone number, and attendance status.
 
-3. **Receive Confirmation**
-   - Get an immediate welcome message
-   - Your attendance is automatically recorded
-   - No additional steps required
+- Receive a welcome message based on your status.
 
 ### **Key Benefits**
 
@@ -91,19 +67,18 @@ The system provides the following core functionality:
 
 - Python 3.7 or higher
 - Web framework (Flask/Django)
-- Database system (SQLite/PostgreSQL/MySQL)
+- Database system (SQLite3)
 - QR code generation library
 - Web server capability
 - Internet connection for attendees to access the form
 
 ## Getting Started
 
-1. Clone the repository
+1. Clone the repository, cd into the directory and create virtual environment: `python -m venv venv`
+`source venv/bin/activate  # or venv\Scripts\activate on Windows`
 2. Install dependencies: `pip install -r requirements.txt`
-3. Configure your database settings
-4. Run the application: `python app.py`
-5. Generate and display QR codes for your services
-6. Start collecting attendance data digitally
+3. Activate the script: `chmod +x run_all.sh`
+5. Run the script: `./run_all.sh`
 
 ## Support and Customization
 
