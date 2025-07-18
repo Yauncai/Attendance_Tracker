@@ -2,20 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> YAF WCI Krugersdorp Attedance Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title> YAF WCI Krugersdorp Attendance Form</title>
 </head>
 <body>
     <h2>YAF WCI Krugersdorp Attendance Check-In</h2>
-    <form method="POST">
-        First Name: <input type="text" name="name" required><br>
-        Surname: <input type="text" name="surname" required><br>
-        Phone Number: <input type="tel" name="phone" required pattern="[0-9]{10}" title="10 digit phone number"><br>
-        Are you a:
-        <select name="status">
-            <option value="first-timer">First-time visitor</option>
-            <option value="regular">Regular Youth attendee</option>
-        </select><br><br>
-        <button type="submit">Submit</button>
+    <div class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert">
+          <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/form">
+      <label for="name">First Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="surname">Surname</label>
+      <input type="text" id="surname" name="surname" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="status">Status</label>
+      <select id="status" name="status" required>
+        <option value="">Choose...</option>
+        <option value="first-timer">First Timer</option>
+        <option value="regular">Regular</option>
+      </select>
+
+      <button type="submit">Submit</button>
     </form>
+  </div>
 </body>
 </html>

@@ -8,9 +8,13 @@ app = Flask(__name__)
 
 DB = 'yaf_attendance.db'
 
+def get_db():
+    conn = sqlite3.connect(app.config.get('DATABASE', DB))
+    return conn
+
 # --- Database helper ---
 def insert_attendance(name, surname, phone, status, timestamp):
-    conn = sqlite3.connect(DB)
+    conn = get_db()
     c = conn.cursor()
     c.execute('INSERT INTO attendance (name, surname, phone, status, timestamp) VALUES (?, ?, ?, ?, ?)',
               (name, surname, phone, status, timestamp))
@@ -18,7 +22,7 @@ def insert_attendance(name, surname, phone, status, timestamp):
     conn.close()
 
 def get_filtered_attendance(name=None, status=None, date=None):
-    conn = sqlite3.connect(DB)
+    conn = get_db()
     c = conn.cursor()
 
     query = 'SELECT name, surname, phone, status, timestamp FROM attendance WHERE 1=1'
@@ -54,7 +58,7 @@ def authenticate():
 # --- Routes ---
 @app.route('/')
 def home():
-    return '<h1>Welcome to the Church Attendance Tracker</h1>'
+    return '<h1>Welcome to the YAF WCI Krugersdorp Attendance Tracker</h1>'
 
 @app.route('/form', methods=['GET', 'POST'])
 def form():
