@@ -1,0 +1,15 @@
+# Ignore virtual environment
+venv/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore attendance data file (if used)
+attendance.csv
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
