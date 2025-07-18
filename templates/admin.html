@@ -68,5 +68,10 @@
         </tbody>
     </table>
     </div>
+    <a href="{{ url_for('admin') if request.path == url_for('form') else url_for('form') }}" class="fab" title="Switch View">
+    {{ "📋" if request.path == url_for('form') else "📝" }}
+    </a>
+
+
 </body>
 </html>

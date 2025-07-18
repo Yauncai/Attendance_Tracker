@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template, request, Response
+from flask import Flask, render_template, request, Response, redirect, url_for
 import csv
 from io import StringIO
 from datetime import datetime
@@ -58,7 +58,7 @@ def authenticate():
 # --- Routes ---
 @app.route('/')
 def home():
-    return '<h1>Welcome to the YAF WCI Krugersdorp Attendance Tracker</h1>'
+    return redirect(url_for('form'))
 
 @app.route('/form', methods=['GET', 'POST'])
 def form():
